@@ -6,7 +6,9 @@ data = json.load(open("Resources/data.json"))
 def checkDef(word):
     word = word.lower()
     if word in data:
-        return(data[word])
+        return data[word]
+    elif word.title() in data:
+        return data[word.title()]
     elif len(get_close_matches(word,data.keys(),3,0.8)) > 0:
         matches = get_close_matches(word,data.keys(),3,0.8)
         yn = input("Did you mean %s instead? [Y/N]: " % matches[0])
