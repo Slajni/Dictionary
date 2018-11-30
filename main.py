@@ -7,7 +7,7 @@ def checkDef(word):
     word = word.lower()
     if word in data:
         return(data[word])
-    elif len(get_close_matches(word,data.keys(),3,0.8)) >= 0:
+    elif len(get_close_matches(word,data.keys(),3,0.8)) > 0:
         matches = get_close_matches(word,data.keys(),3,0.8)
         yn = input("Did you mean %s instead? [Y/N]: " % matches[0])
         if yn.lower() == "y":
@@ -30,7 +30,14 @@ userWord = ""
 
 while userWord.lower()!="N":
     userWord = input("Which word you search for? : ")
-    print(checkDef(userWord))
+    defs = checkDef(userWord)
+    if type(defs) == list:
+        a = 0
+        for definition in defs:
+            a += 1
+            print("%d. %s" % (a,definition))
+    else:
+        print(defs)
     userWord = input("Do you wish to continue? [Y/N]: ")
     if userWord.lower()=="y":
         continue
